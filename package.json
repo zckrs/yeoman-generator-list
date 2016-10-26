@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "node generator.js",
-    "test": "xo"
+    "test": "npm start"
   },
   "private": true
 }

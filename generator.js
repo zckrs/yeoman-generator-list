@@ -16,31 +16,40 @@ const bucket = require('gcloud').storage({
 
 /* Actual generator files */
 const List = require('./src');
+const fs = require('fs');
+
+
+List.update(npmListKeyword)
+.then(response => {
+  fs.writeFileSync('cache.json', response.data, 'utf8');
+  console.log(response.data.length);
+});
 
 /* List operations */
-(function update() {
-  // Be able to run this again
-  let runTimeout = () => setTimeout(update, updateInterval * 1000);
-
-  List.update(npmListKeyword)
-  .then(response => {
-    bucket.file('cache.json').createWriteStream({
-      gzip: true,
-      metadata: {
-        contentType: 'application/json',
-        metadata: {
-          ETag: response.etag
-        }
-      }
-    })
-    .on('error', err => {
-      List.log.error('Cloud: Error publishing the list: ', err);
-      runTimeout();
-    })
-    .on('finish', () => {
-      List.log.info('Cloud: Pushed cache to CDN');
-      runTimeout();
-    }).end(response.data);
-  })
-  .catch(runTimeout);
-})();
+// (function update() {
+//   // Be able to run this again
+//   let runTimeout = () => setTimeout(update, updateInterval * 1000);
+//
+//   List.update(npmListKeyword)
+//   .then(response => {
+//     fs.writeFileSync('cache.json', response.data, 'utf8');
+//     bucket.file('cache.json').createWriteStream({
+//       gzip: true,
+//       metadata: {
+//         contentType: 'application/json',
+//         metadata: {
+//           ETag: response.etag
+//         }
+//       }
+//     })
+//     .on('error', err => {
+//       List.log.error('Cloud: Error publishing the list: ', err);
+//       runTimeout();
+//     })
+//     .on('finish', () => {
+//       List.log.info('Cloud: Pushed cache to CDN');
+//       runTimeout();
+//     }).end(response.data);
+//   })
+//   .catch(runTimeout);
+// })();

@@ -7,11 +7,12 @@ const log = require('./logger');
 
 module.exports = list => {
   log.info('npmsInfo: Fetching info for %s packages', list.length);
+  const currentDate = new Date();
 
   return pMap(list, fetchInfos, {concurrency: 2})
     .then(pkgs => {
       pkgs = pkgs.filter(pkg => Boolean(pkg));
-      log.info('npmInfo: Fetched info for %s valid packages', pkgs.length);
+      log.info(`npmInfo: Fetched info for ${pkgs.length} valid packages ${moment().from(currentDate)}`);
 
       return pkgs;
     })
