@@ -1,3 +1,18 @@
 language: node_js
 node_js:
   - '6'
+
+cache:
+  directories:
+  - node_modules
+
+env:
+  global:
+    - secure: cxbMNM9pEgMxWOplfTcVhjeR2YHx2vgECzzRm/8sV2HYYQs/RBsECbnSSpjDj4k/Kp9NzLjD0E3bH4xlSzYLdXOy2R9SKvE2OEdnb0GYTi5i1mlczxr9K5/8b0ZJPPgC1Ve+/E5/tG3QN+aPMeXCLCyjV60YZvWp0m8TDfTNDmmA/Kkx+OqhK070uq8JF0SWaE94Be83f7Y/9wGotFR5CUzA8fyVgtaYG9u+U07xxCLDf1bN9KjGmfQAkTsNaEUOJF7qY0BIIoNnrDRHtr4Hx7gKqjwqy0dx8gfK1syPU6M1oyRc6lUMy6c+7YHYzkdbR2AK41cdBFWIaJk1bX+tQSHNlBnT+OLyDS7JEU4eHyVCoUWnv6NvwReVKmP5LjgVBcwbMB22VIkajRlzSVPmnbpOR2vlMZXUaNM2tpW+I1Hx33IfdWtBgPfHxT3U1Q8OA6dZ6CmxAo1/4EinS+ujAiM/d9shcaJdW414GTk7BDMD/aStt8rM9QHpNYFSc2fz63qCyOpuYH02UkL7kcqQ3wWPIqUph9062eMatLuC5IWujWVwdt8Vrjn4nITWsR21OasFshpnJTejAxDCi5o7N5/AG21y0o2neqBI9Yok4bB/tdVh+wGqwd3+F5slwMokFq8r6l0Sbbs305+S1mtwRme7fTlPNTRDjmVvojz+EVs=
+    - GIT_NAME: Travis-CI
+    - GIT_EMAIL: travis@yeoman.io
+    - GIT_SOURCE: dist
+    - GITHUB_REPO: zckrs/yeoman-generator-list
+
+after_success:
+- if [ "$TRAVIS_BRANCH" = "free-host" -a "$TRAVIS_PULL_REQUEST" = "false" ] && [[ ${TRAVIS_JOB_NUMBER} == *".1" ]]; then npm install git-update-ghpages; ./node_modules/.bin/git-update-ghpages -e -b cache-generators-list; fi
