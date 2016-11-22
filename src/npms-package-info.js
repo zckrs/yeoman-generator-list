@@ -23,7 +23,7 @@ module.exports = list => {
 
       formattedGroupsPkg = formattedGroupsPkg.filter(pkg => Boolean(pkg));
 
-      log.info(`npmInfo: Fetched info for ${formattedGroupsPkg.length} valid packages ${moment().from(currentDate)}`);
+      log.info(`npmsInfo: Fetched info for ${formattedGroupsPkg.length} valid packages ${moment().from(currentDate)}`);
 
       return formattedGroupsPkg;
     });

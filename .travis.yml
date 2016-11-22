@@ -12,7 +12,7 @@ env:
     - GIT_NAME: Travis-CI
     - GIT_EMAIL: travis@yeoman.io
     - GIT_SOURCE: dist
-    - GITHUB_REPO: zckrs/yeoman-generator-list
+    - GITHUB_REPO: yeoman/yeoman-generator-list
 
 after_success:
-- if [ "$TRAVIS_BRANCH" = "free-host" -a "$TRAVIS_PULL_REQUEST" = "false" ] && [[ ${TRAVIS_JOB_NUMBER} == *".1" ]]; then npm install git-update-ghpages; ./node_modules/.bin/git-update-ghpages -e -b cache-generators-list; fi
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ] && [[ ${TRAVIS_JOB_NUMBER} == *".1" ]]; then npm install git-update-ghpages; ./node_modules/.bin/git-update-ghpages -e -b cache-generators-list; fi
